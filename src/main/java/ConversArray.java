@@ -4,9 +4,9 @@ import java.util.List;
 
 public class ConversArray
 {
-    Integer [] arr = {  2 ,2, 1,3,7,9,4,56,21,44}; // есть один и четыре
-    Integer [] arr1 = {  2 ,2,3,7,9,55,25,45}; // нет ни одной четвеки или однерки
-    Integer [] arr2 = {  2 ,2,4, 1,3,4,7,9,4,65,35,75}; // есть единица и две четверки
+    Integer [] arr = {2,2,1,3,7,9,4,56,21,44}; // есть один и две четверки
+    Integer [] arrCheck = {1,1,4,1,1,4,1};
+
 
 
     public static void main(String[] args)
@@ -23,7 +23,7 @@ public class ConversArray
         }
         System.out.println();
 
-        System.out.println(conversArray.checked(conversArray.arr));
+        System.out.println(conversArray.checked(conversArray.arrCheck));
     }
 
     public int[] conversToArray(Integer[] arr)
@@ -43,7 +43,7 @@ public class ConversArray
    public boolean checked(Integer[] arr)
     {
         ArrayList<Integer> list =new ArrayList( Arrays.asList(arr));
-        if (list.contains(4) || list.contains(1) ) return  true;
+        if (list.contains(4) && list.contains(1) ) return  true;
         return false;
     }
 }
