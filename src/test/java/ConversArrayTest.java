@@ -1,69 +1,85 @@
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import static org.junit.Assert.*;
 
-//@RunWith(Parameterized.class)
+@RunWith(Parameterized.class)
 public class ConversArrayTest
 {
-    @Parameterized.Parameter
-Integer[] arr25 = {  2 ,2, 1,3,7,9,4,57,21,44};
+    private Integer [] inData;
+    private int [] outData;
 
-    @org.junit.Before
-    public void setUp() throws Exception
-    {
+    private static ConversArray conversArray;
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][] {
+                {new Integer[]{2 ,2,1,3,7,9,4,56,21,44},new int[]{56,21,44}}, // одна четверка
+                {new Integer[]{2 ,2,4, 1,3,4,7,9,4,65,35,75},new int[]{65,35,75}},// две четверки
+        });
     }
 
-    @org.junit.After
+    public ConversArrayTest(Integer [] input, int [] output)
+    {
+        inData=input;
+        outData=output;
+    }
+
+    static Integer[] arrTest1 = {  2 ,2,3,7,9,55,25,45}; // нет ни одной четвеки
+
+    static Integer [] arrCheck = {1,1,4,1,1,4,1};
+    static Integer [] arrCheck1 ={1,1,1,1,1,1,1};
+
+    @BeforeClass
+    public static void initConversArray() throws Exception
+    {
+        conversArray=new ConversArray();
+    }
+//    @Before
+//    public void setUp() throws Exception
+//    {
+//        conversArray=new ConversArray();
+//    }
+
+    @After
     public void tearDown() throws Exception
     {
+        System.out.println("Тестирование завершено");
     }
 
-    @org.junit.Test
-    public void conversToArray()
+    @Test
+    public void conversToArrayParam()
     {
-        ConversArray conversArray=new ConversArray();
-         int [] arr=conversArray.conversToArray(arr25);
-        int [] arrTest={57,21,44};
-        assertArrayEquals(arrTest,arr);
+        assertArrayEquals(outData,conversArray.conversToArray(inData));
 
     }
 
-//    @org.junit.Test
-//    public void conversToArray1()
-//    {
-//        ConversArray conversArray=new ConversArray();
-//        int [] arr=conversArray.conversToArray(conversArray.arr1);
-//        int [] arrTest={55,25,45};
-//        assertArrayEquals(arrTest,arr);
-//
-//    }
-    @org.junit.Test
-    public void conversToArray2()
+    // ожидаем исключение если во входном массиве нет ни одной четверки
+    @Test(expected=RuntimeException.class)
+    public void conversToArray1()
     {
-        ConversArray conversArray=new ConversArray();
-        int [] arr=conversArray.conversToArray(conversArray.arr2);
-        int [] arrTest={65,35,75};
+        int [] arr=conversArray.conversToArray(arrTest1);
+        int [] arrTest={55,25,45};
         assertArrayEquals(arrTest,arr);
-
     }
 
-    @org.junit.Test
+    // ожидаем true
+    @Test
     public void checked()
     {
-        ConversArray conversArray=new ConversArray();
-        assertTrue(conversArray.checked(conversArray.arr));
-
+        assertTrue(conversArray.checked(arrCheck));
     }
 
-    @org.junit.Test
+    // ожидаем false
+    @Test
     public void checked1()
     {
-        ConversArray conversArray=new ConversArray();
-        assertFalse(conversArray.checked(conversArray.arr1));
-
+        assertFalse(conversArray.checked(arrCheck1));
     }
 }
