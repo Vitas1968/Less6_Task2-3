@@ -1,4 +1,4 @@
-package Lesson7_Ref_Ann;
+package Lesson7_Ref_Ann.Annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
