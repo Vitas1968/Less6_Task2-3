@@ -1,39 +1,43 @@
-package Lesson7_Ref_Ann;
+package Lesson7_Ref_Ann.TestClasses;
+
+import Lesson7_Ref_Ann.Annotations.AfterSuite;
+import Lesson7_Ref_Ann.Annotations.Test;
 
 import java.lang.reflect.Method;
 
 public class ClassForTest
 {
-    public static void main(String[] args)
+    @AfterSuite
+    public void startTest()
     {
-//        Method[] methods = ClassForTest.class.getDeclaredMethods();
-//
-//        for (Method met:methods)
-//        {
-//            System.out.println(met);
-//        }
-        System.out.println(add(10,5));
-        System.out.println(sub(10,5));
-        System.out.println(mult(10,5));
-        System.out.println(div(10,5));
-
+        System.out.println("Выполнится первым");
     }
-
-    static int add(int a,int b)
+    @Test
+    public void testMethod1()
     {
-        return a+b;
+        System.out.println("Выполняется testMethod1 в ClassForTest");
     }
-    static int sub(int a,int b)
+    @Test(priority = 8)
+    public void testMethod2()
     {
-        return a-b;
-    }
-    static int mult(int a,int b)
-    {
-        return a*b;
+        System.out.println("Выполняется testMethod2 в ClassForTest");
     }
 
-    static int div(int a,int b) throws ArithmeticException
-    { if (b!=0) return a/b;
-    else throw new ArithmeticException("Деление на ноль");
+    @Test(priority = 2)
+    public void testMethod3()
+    {
+        System.out.println("Выполняется testMethod3 в ClassForTest");
     }
+    @AfterSuite
+    public void endTest()
+    {
+        System.out.println("Выполнится последним");
+    }
+
+    @AfterSuite
+    public void endTest1()
+    {
+        System.out.println("Не выполнится совсем");
+    }
+
 }
