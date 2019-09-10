@@ -1,4 +1,4 @@
-package Lesson7_Ref_Ann;
+package Lesson7_Ref_Ann.Annotations;
 
 public @interface BeforeSuite
 {
